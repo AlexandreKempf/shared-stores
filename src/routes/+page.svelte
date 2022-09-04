@@ -1,2 +1,17 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import { my_store } from '../lib/myStore';
+
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * max);
+	}
+</script>
+
+<button
+	on:click={() => {
+		$my_store = { ...$my_store, test: getRandomInt(10) };
+	}}
+>
+	Create user
+</button>
+
+<p>{$my_store.test}</p>
