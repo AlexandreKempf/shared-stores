@@ -1,17 +1,16 @@
 <script>
 	import { my_store } from '../lib/myStore';
-
-	function getRandomInt(max) {
-		return Math.floor(Math.random() * max);
-	}
+	$my_store = 1;
 </script>
 
+<!-- https://supabase.com/docs/guides/realtime/presence -->
+<!-- https://supabase.com/blog/supabase-realtime-multiplayer-general-availability -->
 <button
 	on:click={() => {
-		$my_store = { ...$my_store, test: getRandomInt(10) };
+		$my_store += 1;
 	}}
 >
-	Create user
+	random int
 </button>
 
-<p>{$my_store.test}</p>
+<p>{$my_store}</p>
