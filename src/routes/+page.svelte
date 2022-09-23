@@ -5,6 +5,7 @@
 
 <!-- https://supabase.com/docs/guides/realtime/presence -->
 <!-- https://supabase.com/blog/supabase-realtime-multiplayer-general-availability -->
+
 <button
 	on:click={() => {
 		$my_store += 1;
