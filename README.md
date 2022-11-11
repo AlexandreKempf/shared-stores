@@ -3,7 +3,7 @@
 Shared-Stores are multiplayer [Svelte](https://svelte.dev/) stores sync with [Supabase](https://supabase.com/) Realtime Multiplayer.
 
 # Motivation
-This repo was created with multiplayer games in mind, mostly board games such as [vote's out](https://votesout.com/) or [codename](https://codenames.game/). I was looking for a convenient way to share a game-state between the players. I love how easy Svelte stores are to use and I decided to use them and bind the last supabase feature Realtime Multiplayer on top of them. 
+This repo was created with multiplayer games in mind, mostly board games such as [vote's out](https://votesout.com/) or [codename](https://codenames.game/). I was looking for a convenient way to share a game-state between the players. I love how easy to use are Svelte stores and I decided to use them and bind the last supabase feature Realtime Multiplayer on top of them. 
 
 Note that this project is open source and supabase is free to use for small projects! 
 
