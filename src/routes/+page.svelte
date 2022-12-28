@@ -1,5 +1,7 @@
 <script>
-	import { my_store } from '../lib/myStore';
+	import { multiplayerStore } from '../lib/multiplayerStore';
+
+	let my_store = multiplayerStore('alex_store', 0);
 </script>
 
 <button
@@ -7,7 +9,7 @@
 		$my_store += 1;
 	}}
 >
-	Accumulator
+	Add 1
 </button>
 
 <p>{$my_store}</p>
