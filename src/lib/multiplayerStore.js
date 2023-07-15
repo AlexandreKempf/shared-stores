@@ -6,24 +6,30 @@ const supabase = createClient(
     import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-export function multiplayerStore(store_name, init_value = null) {
+function set_store_for_user(store, payload, sudo) {
+    let sender_store = payload.users[payload.username]
+    store.update((receiver_store) => {
+        return {
+            ...receiver_store,
+            users: { ...receiver_store.users, [payload.username]: sender_store },
+            common: (sudo || receiver_store.common === null) ? payload.common : receiver_store.common
+        }
+    })
+};
 
-    const store = writable(init_value);
-    let value = init_value
 
-    const channel = supabase.channel(store_name)
+export function multiplayerStore(room_name, username, content, sudo = false) {
+
+    const channel = supabase.channel(room_name)
+
+    let store = writable({ common: null, users: { [username]: content }, username: username });
 
     channel
-        .on('broadcast', { event: 'store-update' }, ({ event, payload, type }) => { payload === init_value ? null : set_locally(payload) })
-        .on('presence', { event: 'join' }, ({ newuser }) => { value === init_value ? null : set(value) })
+        .on('broadcast', { event: 'store-update' }, ({ event, payload, type }) => { set_store_for_user(store, payload, sudo) })
+        .on('presence', { event: 'join' }, ({ newuser }) => { console.log(newuser) })
         .subscribe()
         .track(null)
 
-
-    function set_locally(new_value) {
-        store.set(new_value)
-        value = new_value
-    }
 
     async function set(new_value) {
         await channel.send({
@@ -31,7 +37,7 @@ export function multiplayerStore(store_name, init_value = null) {
             event: 'store-update',
             payload: new_value
         })
-        set_locally(new_value)
+        store.update((old_value) => new_value)
     }
 
 
